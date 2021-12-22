@@ -1,15 +1,18 @@
-import { Button, makeStyles } from "@material-ui/core";
-import { blue } from "@material-ui/core/colors";
+import { Button, ButtonProps, makeStyles } from "@material-ui/core";
 import React, { ReactElement } from "react";
 
 const useStyles = makeStyles((theme) => ({
   rockButton: {
-    backgroundColor: "blue",
+    backgroundColor: "lightblue",
   },
 }));
-interface Props {}
+interface Props extends ButtonProps {}
 
 export default function RockButton(_props: Props): ReactElement {
   const classes = useStyles();
-  return <Button className={classes.rockButton}>Rock</Button>;
+  return (
+    <Button className={classes.rockButton} {..._props}>
+      Rock
+    </Button>
+  );
 }
