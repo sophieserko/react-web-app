@@ -14,5 +14,5 @@ export default function RockButton(_props: Props): ReactElement {
     <Button className={classes.rockButton} {..._props}>
       Rock
     </Button>
-  );
+  ); //why do you need to pass props?
 }
