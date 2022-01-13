@@ -1,23 +1,24 @@
-import { Container, makeStyles, Typography } from "@material-ui/core";
-import React, { FunctionComponent, ReactElement } from "react";
-import PaperButton from "./PaperButton";
-import RobotPlayer from "./RobotPlayer";
-import RockButton from "./RockButton";
-import ScissorButton from "./ScissorButton";
+import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
+import React, { ReactElement, useState } from "react";
+import GameButton from "./GameButton";
+import AdbIcon from "@material-ui/icons/Adb";
+import { Person } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   play: {
     display: "flex",
     justifyContent: "center",
-    backgroundColor: "pink",
+    backgroundColor: "#de8847",
     flexDirection: "column",
-    width: "400px",
+    width: 500,
   },
   titleComponent: {
-    color: "purple",
+    color: "#6e1780",
   },
   buttonGroup: {
     justifyContent: "center",
+    margin: 10,
+    padding: 10,
   },
 }));
 interface Props {}
@@ -26,10 +27,14 @@ interface Props {}
 export default function GameArea(_props: Props): ReactElement {
   const classes = useStyles();
 
+  const [gameResult, setGameResult] = useState("--click to play--");
+  const [playerChoice, setPlayerChoice] = useState("player");
+  const [robotChoice, setRobotChoice] = useState<string | undefined>("robot");
+
   //const onSubmit: SubmitHandler<ColorInputs> = (data) => console.log(data);
 
-  var player1 = "";
-  let player2: string | undefined = "";
+  var player1 = "peter";
+  let robotPlayer: string | undefined = "";
   const playItems = new Map([
     [1, "rock"],
     [2, "paper"],
@@ -38,43 +43,80 @@ export default function GameArea(_props: Props): ReactElement {
   const min = 1;
   const max = 4;
 
-  function handleClick(choice: string) {
-    console.log(choice);
-    player1 = choice;
-    console.log("player 1 is now: " + player1);
+  function buttonClick(text: string) {
+    console.log("Player choice = " + text);
+    setPlayerChoice(text);
+    console.log("after setplayerchoice=======" + playerChoice);
+
+    const random = Math.floor(min + Math.random() * (max - min));
+    robotPlayer = playItems.get(random);
+    setRobotChoice(robotPlayer);
+
+    console.log("player 1 is now: " + text + " and robot: " + robotPlayer);
+    player1 = text;
+    playGame();
   }
 
-  const handleClick2 = (choice: string) => {
-    return (event: React.MouseEvent) => {
-      console.log(choice);
-      player1 = choice;
-      const random = Math.floor(min + Math.random() * (max - min));
-      player2 = playItems.get(random);
-      console.log("player 1 is now: " + player1 + " = player2 -> " + player2);
-      playGame();
-    };
-  };
-
+  // const playGame = () => {
+  //   if (player1 === robotPlayer) {
+  //     setGameResult("TIE");
+  //   } else if (player1 === "rock") {
+  //     if (robotPlayer === "scissors") {
+  //       setGameResult(player1 + " beats " + robotPlayer + " player1 wins");
+  //     } else {
+  //       setGameResult(player1 + " - " + robotPlayer + " robotPlayer wins");
+  //     }
+  //   } else if (player1 === "paper") {
+  //     if (robotPlayer === "rock") {
+  //       setGameResult(player1 + " beats " + robotPlayer + " player1 wins");
+  //     } else {
+  //       setGameResult(player1 + " - " + robotPlayer + " robotPlayer wins");
+  //     }
+  //   } else if (player1 === "scissors") {
+  //     if (robotPlayer === "paper") {
+  //       setGameResult(player1 + " beats " + robotPlayer + " player1 wins");
+  //     } else {
+  //       setGameResult(player1 + " - " + robotPlayer + " robotPlayer wins");
+  //     }
+  //   }
+  // };
   const playGame = () => {
-    if (player1 === player2) {
-      console.log("TIE");
-    } else if (player1 === "rock") {
-      if (player2 === "scissors") {
-        console.log(player1 + " beats " + player2 + " player1 wins");
-      } else {
-        console.log(player1 + " - " + player2 + " player2 wins");
+    switch (player1) {
+      case "rock": {
+        if (robotPlayer === "rock") {
+          setGameResult("TIE");
+        } else if (robotPlayer === "scissors") {
+          setGameResult(player1 + " breaks " + robotPlayer + " -- you win!!");
+        } else {
+          setGameResult(
+            player1 + " gets wrapped by " + robotPlayer + " -- robot wins"
+          );
+        }
+        break;
       }
-    } else if (player1 === "paper") {
-      if (player2 === "rock") {
-        console.log(player1 + " beats " + player2 + " player1 wins");
-      } else {
-        console.log(player1 + " - " + player2 + " player2 wins");
+      case "scissors": {
+        if (robotPlayer === "scissors") {
+          setGameResult("TIE");
+        } else if (robotPlayer === "paper") {
+          setGameResult(player1 + " cuts " + robotPlayer + " -- you win!!");
+        } else {
+          setGameResult(
+            player1 + " are broken by " + robotPlayer + " -- robot wins"
+          );
+        }
+        break;
       }
-    } else if (player1 === "scissors") {
-      if (player2 === "paper") {
-        console.log(player1 + " beats " + player2 + " player1 wins");
-      } else {
-        console.log(player1 + " - " + player2 + " player2 wins");
+      case "paper": {
+        if (robotPlayer === "paper") {
+          setGameResult("TIE");
+        } else if (robotPlayer === "rock") {
+          setGameResult(player1 + " wraps " + robotPlayer + " -- you win!!");
+        } else {
+          setGameResult(
+            player1 + " is cut by " + robotPlayer + " -- robot wins"
+          );
+        }
+        break;
       }
     }
   };
@@ -83,19 +125,35 @@ export default function GameArea(_props: Props): ReactElement {
     <div>
       {}
       <Container className={classes.play}>
-        <Typography variant="h5" className={classes.titleComponent}>
+        <Typography variant="h4" className={classes.titleComponent}>
           Play the Game
         </Typography>
-        <RobotPlayer player2={player2} />
+
+        <Grid container>
+          <Grid item xs={1}>
+            <AdbIcon fontSize="large"></AdbIcon>
+          </Grid>
+          <Grid item xs={11}>
+            <Typography variant="h5">Robot = {robotChoice}</Typography>
+          </Grid>
+
+          <Grid item xs={1}>
+            <Person fontSize="large"></Person>
+          </Grid>
+          <Grid item xs={11}>
+            <Typography variant="h5">You = {playerChoice}</Typography>
+          </Grid>
+        </Grid>
+
+        <Typography variant="h5">Choose your action</Typography>
+
         <div className={classes.buttonGroup}>
-          <RockButton onClick={handleClick2("rock")} />
-          <PaperButton onClick={handleClick2("paper")} />
-          <ScissorButton
-            handleScissorButtonClick={() => handleClick2("scissors")}
-            name="hello"
-          />
+          <GameButton handleClick={buttonClick} name="rock" />
+          <GameButton handleClick={buttonClick} name="paper" />
+          <GameButton handleClick={buttonClick} name="scissors" />
         </div>
+        <Typography variant="h5">Result: {gameResult}</Typography>
       </Container>
     </div>
   );
-} //refactor
+}

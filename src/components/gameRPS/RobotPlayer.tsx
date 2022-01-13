@@ -3,6 +3,7 @@ import React, { ReactElement } from "react";
 
 interface Props {
   player2: string;
+  setRobotPlayer: string;
 }
 
 const playItems = new Map([
