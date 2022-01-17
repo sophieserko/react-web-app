@@ -1,7 +1,8 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import GameArea from "./components/gameRPS/GameArea";
+
+import { HomePage } from "./components/HomePage";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-    <GameArea />
+    <HomePage />
   );
 }
 
