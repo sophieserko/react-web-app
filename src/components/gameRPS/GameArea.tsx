@@ -81,6 +81,8 @@ export default function GameArea(_props: Props): ReactElement {
       return;
     }
 
+    console.log("log player in playGame " + playerChoice);
+
     switch (player1) {
       case Choice.Rock: {
         if (robotPlayer === Choice.Scissors) {
@@ -91,7 +93,7 @@ export default function GameArea(_props: Props): ReactElement {
         break;
       }
       case Choice.Scissors: {
-        if (robotPlayer === "paper") {
+        if (robotPlayer === Choice.Paper) {
           setGameResult(scissorsVsPaper() + youWin());
         } else {
           setGameResult(rockVsScissors() + robotWin());
@@ -99,7 +101,7 @@ export default function GameArea(_props: Props): ReactElement {
         break;
       }
       case Choice.Paper: {
-        if (robotPlayer === "rock") {
+        if (robotPlayer === Choice.Rock) {
           setGameResult(paperVsRock() + youWin());
         } else {
           setGameResult(scissorsVsPaper() + robotWin());
@@ -139,6 +141,14 @@ export default function GameArea(_props: Props): ReactElement {
           Play the Game
         </Typography>
 
+        <Typography variant="h5">Choose your action</Typography>
+
+        <div className={classes.buttonGroup}>
+          <GameButton handleClick={buttonClick} name={Choice.Rock} />
+          <GameButton handleClick={buttonClick} name={Choice.Paper} />
+          <GameButton handleClick={buttonClick} name={Choice.Scissors} />
+        </div>
+
         <Grid container>
           <Grid item xs={1}>
             <AdbIcon fontSize="large"></AdbIcon>
@@ -155,13 +165,6 @@ export default function GameArea(_props: Props): ReactElement {
           </Grid>
         </Grid>
 
-        <Typography variant="h5">Choose your action</Typography>
-
-        <div className={classes.buttonGroup}>
-          <GameButton handleClick={buttonClick} name={Choice.Rock} />
-          <GameButton handleClick={buttonClick} name={Choice.Paper} />
-          <GameButton handleClick={buttonClick} name={Choice.Scissors} />
-        </div>
         <Typography variant="h5">Result: {gameResult}</Typography>
         <ScoreTable
           numberOfGamesPlayed={totalGamesPlayed}

@@ -4,7 +4,7 @@ import GameArea from "./gameRPS/GameArea";
 
 const useStyles = makeStyles((theme) => ({
   background: {
-    backgroundColor: "#329222",
+    backgroundColor: "#371182",
   },
 }));
 interface Props {}
