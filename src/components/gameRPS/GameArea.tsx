@@ -3,6 +3,7 @@ import {
   Grid,
   makeStyles,
   Paper,
+  TextField,
   Typography,
 } from "@material-ui/core";
 import React, { ReactElement, useState } from "react";
@@ -14,15 +15,15 @@ import RobotPlayer from "./RobotPlayer";
 
 const useStyles = makeStyles((theme) => ({
   play: {
-    //display: "flex",
-    justifyContent: "center",
-    backgroundColor: "#de8847",
-    //flexDirection: "column",
-    width: 500,
-    //margin: 10,
+    // //display: "flex",
+    // justifyContent: "center",
+    backgroundColor: theme.palette.secondary.light,
+    // //flexDirection: "column",
+    // width: 500,
+    margin: 10,
   },
   titleComponent: {
-    color: "#6e1780",
+    color: theme.palette.primary.dark,
   },
   buttonGroup: {
     justifyContent: "center",
@@ -48,8 +49,9 @@ export default function GameArea(_props: Props): ReactElement {
   const [gameResult, setGameResult] = useState("--click to play--");
   const [playerChoice, setPlayerChoice] = useState("player");
   const [robotChoice, setRobotChoice] = useState<string | undefined>("robot");
+  const [playerName, setPlayerName] = useState("Player");
 
-  var player1 = "peter";
+  var player1 = "name";
   let robotPlayer: string | undefined = "";
   const playItems = new Map([
     [1, Choice.Rock],
@@ -76,12 +78,12 @@ export default function GameArea(_props: Props): ReactElement {
 
   const playGame = () => {
     totalGamesPlayed++;
+    console.log("log player in playGame " + playerChoice);
+
     if (player1 === robotPlayer) {
       setGameResult("TIE");
       return;
     }
-
-    console.log("log player in playGame " + playerChoice);
 
     switch (player1) {
       case Choice.Rock: {
@@ -136,10 +138,24 @@ export default function GameArea(_props: Props): ReactElement {
   console.log("log player just before render " + playerChoice);
   return (
     <Paper className={classes.play}>
-      <Container>
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+      >
         <Typography variant="h4" className={classes.titleComponent}>
           Play the Game
         </Typography>
+
+        <TextField
+          id="playerName"
+          label="Player Name"
+          variant="outlined"
+          onChange={(e) => {
+            setPlayerName(e.target.value);
+          }}
+        />
 
         <Typography variant="h5">Choose your action</Typography>
 
@@ -149,20 +165,16 @@ export default function GameArea(_props: Props): ReactElement {
           <GameButton handleClick={buttonClick} name={Choice.Scissors} />
         </div>
 
-        <Grid container>
-          <Grid item xs={1}>
-            <AdbIcon fontSize="large"></AdbIcon>
-          </Grid>
-          <Grid item xs={11}>
-            <Typography variant="h5">Robot = {robotChoice}</Typography>
-          </Grid>
+        <Grid container direction="row" justifyContent="center">
+          <AdbIcon fontSize="large"></AdbIcon>
+          <Typography variant="h5">Robot = {robotChoice}</Typography>
+        </Grid>
 
-          <Grid item xs={1}>
-            <Person fontSize="large"></Person>
-          </Grid>
-          <Grid item xs={11}>
-            <Typography variant="h5">You = {playerChoice}</Typography>
-          </Grid>
+        <Grid container direction="row" justifyContent="center">
+          <Person fontSize="large"></Person>
+          <Typography variant="h5">
+            {playerName} = {playerChoice}
+          </Typography>
         </Grid>
 
         <Typography variant="h5">Result: {gameResult}</Typography>
@@ -171,7 +183,7 @@ export default function GameArea(_props: Props): ReactElement {
           robotScore={robotScore}
           playerScore={playerScore}
         ></ScoreTable>
-      </Container>
+      </Grid>
     </Paper>
   );
 }
