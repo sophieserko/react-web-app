@@ -13,12 +13,14 @@ interface Props {
   numberOfGamesPlayed: Number;
   robotScore: Number;
   playerScore: Number;
+  tieCount: Number;
 }
 
 export const ScoreTable = ({
   numberOfGamesPlayed,
   robotScore,
   playerScore,
+  tieCount,
 }: Props) => {
   return (
     <TableContainer component={Paper}>
@@ -28,6 +30,7 @@ export const ScoreTable = ({
             <TableCell>Total Games </TableCell>
             <TableCell align="right">Robot</TableCell>
             <TableCell align="right">Player</TableCell>
+            <TableCell align="right">Tie</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -37,6 +40,7 @@ export const ScoreTable = ({
             </TableCell>
             <TableCell align="right">{robotScore}</TableCell>
             <TableCell align="right">{playerScore}</TableCell>
+            <TableCell align="right">{tieCount}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
