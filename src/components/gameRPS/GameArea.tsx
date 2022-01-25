@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   play: {
     backgroundColor: theme.palette.secondary.light,
     margin: 10,
+    padding: 20,
   },
   titleComponent: {
     color: theme.palette.primary.dark,
@@ -173,7 +174,7 @@ export default function GameArea(_props: Props): ReactElement {
 
         <Grid container direction="row" justifyContent="center">
           <Person fontSize="large"></Person>
-          <Typography variant="h5">
+          <Typography variant="h5" data-testid="player-choice">
             {playerName} = {playerChoice}
           </Typography>
         </Grid>

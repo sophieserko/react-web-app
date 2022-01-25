@@ -3,17 +3,82 @@ import { render, screen } from "@testing-library/react";
 import GameArea from "./GameArea";
 import userEvent from "@testing-library/user-event";
 
-describe("Press rock button", () => {
-  it("should display rock as player's choice", () => {
+describe("The rock button", () => {
+  it("should display in the GameArea", () => {
     render(<GameArea />);
 
     const rockButton = screen.getByTestId("ROCKButton");
 
     expect(rockButton).toBeInTheDocument();
-    // const rockButton = screen.getByTestId(/rockButton/i);
-    // userEvent.click(rockButton);
-
-    // const linkElement = screen.getByText(/learn react/i);
-    // expect(linkElement).toBeInTheDocument();
   });
+
+  it("should be clickable and display ROCK as player's choice", () => {
+    render(<GameArea />);
+
+    const rockButton = screen.getByTestId("ROCKButton");
+
+    userEvent.click(rockButton);
+
+    const playerDisplayElement = screen.getByText("Player = ROCK");
+    expect(playerDisplayElement).toBeInTheDocument();
+  });
+});
+
+describe("The scissors button", () => {
+  it("should display in the GameArea", () => {
+    render(<GameArea />);
+
+    const rockButton = screen.getByTestId("SCISSORSButton");
+
+    expect(rockButton).toBeInTheDocument();
+  });
+
+  it("should be clickable and display SCISSORS as player's choice", () => {
+    render(<GameArea />);
+
+    const rockButton = screen.getByTestId("SCISSORSButton");
+
+    userEvent.click(rockButton);
+
+    const playerDisplayElement = screen.getByText("Player = SCISSORS");
+    expect(playerDisplayElement).toBeInTheDocument();
+  });
+});
+
+describe("The paper button", () => {
+  it("should display in the GameArea", () => {
+    render(<GameArea />);
+
+    const rockButton = screen.getByTestId("PAPERButton");
+
+    expect(rockButton).toBeInTheDocument();
+  });
+
+  it("should be clickable and display PAPER as player's choice", () => {
+    render(<GameArea />);
+
+    const rockButton = screen.getByTestId("PAPERButton");
+
+    userEvent.click(rockButton);
+
+    const playerDisplayElement = screen.getByText("Player = PAPER");
+    expect(playerDisplayElement).toBeInTheDocument();
+  });
+});
+
+describe("Score increase", () => {
+  it("for player when player wins a round", () => {
+    render(<GameArea />);
+    //const mockRobot = jest.fn().mo
+
+    const rockButton = screen.getByTestId("PAPERButton");
+
+    expect(rockButton).toBeInTheDocument();
+  });
+
+  it("for robot when robot wins a round", () => {});
+
+  it("for tie when robot and player choices are equal", () => {});
+
+  it("any outcome increases total game count", () => {});
 });

@@ -1,4 +1,5 @@
 import {
+  makeStyles,
   Paper,
   Table,
   TableBody,
@@ -8,6 +9,12 @@ import {
   TableRow,
 } from "@material-ui/core";
 import React from "react";
+
+const useStyles = makeStyles((theme) => ({
+  table: {
+    backgroundColor: "#776676",
+  },
+}));
 
 interface Props {
   numberOfGamesPlayed: Number;
@@ -22,8 +29,9 @@ export const ScoreTable = ({
   playerScore,
   tieCount,
 }: Props) => {
+  const classes = useStyles();
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className={classes.table}>
       <Table>
         <TableHead>
           <TableRow>
