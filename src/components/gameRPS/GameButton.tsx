@@ -19,6 +19,7 @@ export default function GameButton(_props: Props): ReactElement {
       className={classes.button}
       variant="outlined"
       size="large"
+      data-testid={_props.name + "Button"}
       onClick={() => _props.handleClick(_props.name)}
     >
       {_props.name}

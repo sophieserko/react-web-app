@@ -22,7 +22,10 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-    <HomePage />
+    <div>
+      Paper scissors rock
+      <HomePage />
+    </div>
   );
 }
 

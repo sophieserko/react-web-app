@@ -161,11 +161,7 @@ export default function GameArea(_props: Props): ReactElement {
         <Typography variant="h5">Choose your action</Typography>
 
         <div className={classes.buttonGroup}>
-          <GameButton
-            handleClick={buttonClick}
-            name={Choice.Rock}
-            data-testid="rockButton"
-          />
+          <GameButton handleClick={buttonClick} name={Choice.Rock} />
           <GameButton handleClick={buttonClick} name={Choice.Paper} />
           <GameButton handleClick={buttonClick} name={Choice.Scissors} />
         </div>
