@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import GameArea from "./GameArea";
 import userEvent from "@testing-library/user-event";
+import * as utils from "./getRobotChoice";
 
 describe("The rock button", () => {
   it("should display in the GameArea", () => {
@@ -67,10 +68,11 @@ describe("The paper button", () => {
 });
 
 describe("Score increase", () => {
-  jest.mock("./getRobotChoice", () => {
-    return { getRobotChoice: () => "ROCK" };
-  });
-  it("for player when player wins a round", () => {
+  it.only("for player when player wins a round", () => {
+    // jest.mock("./getRobotChoice", () => {
+    //   return { getRobotChoice2: () => "ROCK" };
+    // });
+    jest.spyOn(utils, "getRobotChoice2").mockReturnValue("ROCK");
     render(<GameArea />);
 
     const paperButton = screen.getByTestId("PAPERButton");

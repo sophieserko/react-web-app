@@ -10,7 +10,7 @@ import GameButton from "./GameButton";
 import AdbIcon from "@material-ui/icons/Adb";
 import { Person } from "@material-ui/icons";
 import { ScoreTable } from "./ScoreTable";
-import { getRobotChoice } from "./getRobotChoice";
+import { getRobotChoice2 } from "./getRobotChoice";
 import { Choice } from "./choice";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +49,7 @@ export default function GameArea(_props: Props): ReactElement {
     const playerChoiceString = text;
     setPlayerChoice(text);
 
-    const robotChoiceString = getRobotChoice();
+    const robotChoiceString = getRobotChoice2();
     setRobotChoice(robotChoiceString);
 
     console.log(
