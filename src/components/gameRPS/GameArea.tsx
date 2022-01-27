@@ -10,6 +10,8 @@ import GameButton from "./GameButton";
 import AdbIcon from "@material-ui/icons/Adb";
 import { Person } from "@material-ui/icons";
 import { ScoreTable } from "./ScoreTable";
+import { getRobotChoice } from "./getRobotChoice";
+import { Choice } from "./choice";
 
 const useStyles = makeStyles((theme) => ({
   play: {
@@ -28,12 +30,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 interface Props {}
 
-export enum Choice {
-  Rock = "ROCK",
-  Paper = "PAPER",
-  Scissors = "SCISSORS",
-}
-
 var robotScore = 0;
 var playerScore = 0;
 var totalGamesPlayed = 0;
@@ -46,14 +42,6 @@ export default function GameArea(_props: Props): ReactElement {
   const [playerChoice, setPlayerChoice] = useState(" - ");
   const [robotChoice, setRobotChoice] = useState<string | undefined>(" - ");
   const [playerName, setPlayerName] = useState("Player");
-
-  const playItems = new Map([
-    [1, Choice.Rock],
-    [2, Choice.Paper],
-    [3, Choice.Scissors],
-  ]);
-  const min = 1;
-  const max = 4;
 
   function buttonClick(text: string) {
     totalGamesPlayed++;
@@ -102,11 +90,6 @@ export default function GameArea(_props: Props): ReactElement {
         break;
       }
     }
-  }
-
-  function getRobotChoice(): string | undefined {
-    const random = Math.floor(min + Math.random() * (max - min));
-    return playItems.get(random);
   }
 
   function rockVsScissors(): String {
