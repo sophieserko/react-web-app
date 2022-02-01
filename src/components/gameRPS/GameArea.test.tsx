@@ -80,7 +80,7 @@ describe("Score increase", () => {
     userEvent.click(paperButton);
 
     expect(
-      screen.getByText(/Result: paper wraps rock you win!!/i)
+      screen.getByText(/Result: rock breaks scissors. You win!!/i)
     ).toBeInTheDocument();
   });
 

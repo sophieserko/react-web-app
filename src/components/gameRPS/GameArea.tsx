@@ -12,6 +12,15 @@ import { Person } from "@material-ui/icons";
 import { ScoreTable } from "./ScoreTable";
 import { getRobotChoice2 } from "./getRobotChoice";
 import { Choice } from "./choice";
+import { calculateGameOutcome } from "./calculateGameOutcome";
+import {
+  tie,
+  rockVsScissors,
+  youWin,
+  paperVsRock,
+  robotWin,
+  scissorsVsPaper,
+} from "./strings";
 
 const useStyles = makeStyles((theme) => ({
   play: {
@@ -30,11 +39,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 interface Props {}
 
-var robotScore = 0;
-var playerScore = 0;
-var totalGamesPlayed = 0;
-var tieCount = 0;
-
 export default function GameArea(_props: Props): ReactElement {
   const classes = useStyles();
 
@@ -43,8 +47,13 @@ export default function GameArea(_props: Props): ReactElement {
   const [robotChoice, setRobotChoice] = useState<string | undefined>(" - ");
   const [playerName, setPlayerName] = useState("Player");
 
+  const [robotScore, setRobotScore] = useState(0);
+  const [playerScore, setPlayerScore] = useState(0);
+  const [tieCount, setTieCount] = useState(0);
+  const [totalGamesPlayed, setTotalGamesPlayed] = useState(0); //can these be exported?
+
   function buttonClick(text: string) {
-    totalGamesPlayed++;
+    setTotalGamesPlayed(totalGamesPlayed + 1);
 
     const playerChoiceString = text;
     setPlayerChoice(text);
@@ -52,39 +61,48 @@ export default function GameArea(_props: Props): ReactElement {
     const robotChoiceString = getRobotChoice2();
     setRobotChoice(robotChoiceString);
 
-    console.log(
-      "playerChoice is now: " +
-        playerChoice +
-        " and robotChoice: " +
-        robotChoice
-    );
+    // console.log(
+    //   "playerChoice is now: " +
+    //     playerChoice +
+    //     " and robotChoice: " +
+    //     robotChoice
+    // );
+
+    calculateGameOutcome(playerChoiceString, robotChoiceString);
 
     if (playerChoiceString === robotChoiceString) {
       setGameResult(tie());
+      setTieCount(tieCount + 1);
       return;
     }
 
     switch (playerChoiceString) {
       case Choice.Rock: {
         if (robotChoiceString === Choice.Scissors) {
+          setPlayerScore(playerScore + 1);
           setGameResult(rockVsScissors() + youWin());
         } else {
+          setRobotScore(robotScore + 1);
           setGameResult(paperVsRock() + robotWin());
         }
         break;
       }
       case Choice.Scissors: {
         if (robotChoiceString === Choice.Paper) {
+          setPlayerScore(playerScore + 1);
           setGameResult(scissorsVsPaper() + youWin());
         } else {
+          setRobotScore(robotScore + 1);
           setGameResult(rockVsScissors() + robotWin());
         }
         break;
       }
       case Choice.Paper: {
         if (robotChoiceString === Choice.Rock) {
+          setPlayerScore(playerScore + 1);
           setGameResult(paperVsRock() + youWin());
         } else {
+          setRobotScore(robotScore + 1);
           setGameResult(scissorsVsPaper() + robotWin());
         }
         break;
@@ -92,34 +110,7 @@ export default function GameArea(_props: Props): ReactElement {
     }
   }
 
-  function rockVsScissors(): String {
-    return " rock breaks scissors ";
-  }
-
-  function scissorsVsPaper(): String {
-    return " scissors cuts paper ";
-  }
-
-  function paperVsRock(): String {
-    return " paper wraps rock ";
-  }
-
-  function youWin(): string {
-    playerScore++;
-    return " you win!!";
-  }
-
-  function robotWin(): string {
-    robotScore++;
-    return " Robot wins";
-  }
-
-  function tie(): string {
-    tieCount++;
-    return " Its a Tie";
-  }
-
-  console.log("log playerChoice just before render " + playerChoice);
+  //console.log("log playerChoice just before render " + playerChoice);
 
   return (
     <Paper className={classes.play}>
