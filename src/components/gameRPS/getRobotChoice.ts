@@ -8,7 +8,9 @@ const playItems = new Map([
 const min = 1;
 const max = 4;
 
-export function getRobotChoice2(): string | undefined {
+export function getRobotChoice2(): string {
   const random = Math.floor(min + Math.random() * (max - min));
-  return playItems.get(random);
+  const stringChoice = playItems.get(random);
+  const val = stringChoice ? stringChoice : "help";
+  return val;
 }

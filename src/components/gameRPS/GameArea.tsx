@@ -42,9 +42,15 @@ interface Props {}
 export default function GameArea(_props: Props): ReactElement {
   const classes = useStyles();
 
+  const [gameState, setGameState] = useState({
+    playerChoice: " - ",
+    robotChoice: " - ",
+    result: "--click to play--",
+  });
+
   const [gameResult, setGameResult] = useState("--click to play--");
-  const [playerChoice, setPlayerChoice] = useState(" - ");
-  const [robotChoice, setRobotChoice] = useState<string | undefined>(" - ");
+  //const [playerChoice, setPlayerChoice] = useState(" - ");
+  //const [robotChoice, setRobotChoice] = useState<string | undefined>(" - ");
   const [playerName, setPlayerName] = useState("Player");
 
   const [robotScore, setRobotScore] = useState(0);
@@ -56,10 +62,15 @@ export default function GameArea(_props: Props): ReactElement {
     setTotalGamesPlayed(totalGamesPlayed + 1);
 
     const playerChoiceString = text;
-    setPlayerChoice(text);
-
     const robotChoiceString = getRobotChoice2();
-    setRobotChoice(robotChoiceString);
+
+    setGameState((previousState) => {
+      return {
+        ...previousState,
+        playerChoice: playerChoiceString,
+        robotChoice: robotChoiceString,
+      };
+    });
 
     // console.log(
     //   "playerChoice is now: " +
@@ -143,13 +154,13 @@ export default function GameArea(_props: Props): ReactElement {
 
         <Grid container direction="row" justifyContent="center">
           <AdbIcon fontSize="large"></AdbIcon>
-          <Typography variant="h5">Robot = {robotChoice}</Typography>
+          <Typography variant="h5">Robot = {gameState.robotChoice}</Typography>
         </Grid>
 
         <Grid container direction="row" justifyContent="center">
           <Person fontSize="large"></Person>
           <Typography variant="h5" data-testid="player-choice">
-            {playerName} = {playerChoice}
+            {playerName} = {gameState.playerChoice}
           </Typography>
         </Grid>
 
