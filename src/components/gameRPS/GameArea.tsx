@@ -1,17 +1,15 @@
 import {
+  Card,
   Grid,
   makeStyles,
-  Paper,
   TextField,
   Typography,
 } from "@material-ui/core";
 import React, { ReactElement, useState } from "react";
 import GameButton from "./GameButton";
-import AdbIcon from "@material-ui/icons/Adb";
-import { Person } from "@material-ui/icons";
 import { ScoreTable } from "./ScoreTable";
 import { getRobotChoice2 } from "./getRobotChoice";
-import { Choice } from "./choice";
+import { Choice, Result } from "./choice";
 import { calculateGameOutcome } from "./calculateGameOutcome";
 import {
   tie,
@@ -21,6 +19,10 @@ import {
   robotWin,
   scissorsVsPaper,
 } from "./strings";
+import { Rock } from "./choices/Rock";
+import { Scissors } from "./choices/Scissors";
+import { Paper } from "./choices/Paper";
+import { GameStateOutput } from "./printOutGameState";
 
 const useStyles = makeStyles((theme) => ({
   play: {
@@ -87,44 +89,31 @@ export default function GameArea(_props: Props): ReactElement {
       return;
     }
 
+    var result: Result = Result.Tie;
+
     switch (playerChoiceString) {
       case Choice.Rock: {
-        if (robotChoiceString === Choice.Scissors) {
-          setPlayerScore(playerScore + 1);
-          setGameResult(rockVsScissors() + youWin());
-        } else {
-          setRobotScore(robotScore + 1);
-          setGameResult(paperVsRock() + robotWin());
-        }
+        result = Rock(robotChoiceString);
         break;
       }
       case Choice.Scissors: {
-        if (robotChoiceString === Choice.Paper) {
-          setPlayerScore(playerScore + 1);
-          setGameResult(scissorsVsPaper() + youWin());
-        } else {
-          setRobotScore(robotScore + 1);
-          setGameResult(rockVsScissors() + robotWin());
-        }
+        result = Scissors(robotChoiceString);
         break;
       }
       case Choice.Paper: {
-        if (robotChoiceString === Choice.Rock) {
-          setPlayerScore(playerScore + 1);
-          setGameResult(paperVsRock() + youWin());
-        } else {
-          setRobotScore(robotScore + 1);
-          setGameResult(scissorsVsPaper() + robotWin());
-        }
+        result = Paper(robotChoiceString);
         break;
       }
     }
+
+    //var print = GameStateOutput(playerChoiceString, result);
+    //setGameResult(print);
   }
 
   //console.log("log playerChoice just before render " + playerChoice);
 
   return (
-    <Paper className={classes.play}>
+    <Card className={classes.play}>
       <Grid
         container
         direction="column"
@@ -152,17 +141,7 @@ export default function GameArea(_props: Props): ReactElement {
           <GameButton handleClick={buttonClick} name={Choice.Scissors} />
         </div>
 
-        <Grid container direction="row" justifyContent="center">
-          <AdbIcon fontSize="large"></AdbIcon>
-          <Typography variant="h5">Robot = {gameState.robotChoice}</Typography>
-        </Grid>
-
-        <Grid container direction="row" justifyContent="center">
-          <Person fontSize="large"></Person>
-          <Typography variant="h5" data-testid="player-choice">
-            {playerName} = {gameState.playerChoice}
-          </Typography>
-        </Grid>
+        <GameStateOutput></GameStateOutput>
 
         <Typography variant="h5">Result: {gameResult}</Typography>
         <ScoreTable
@@ -172,6 +151,6 @@ export default function GameArea(_props: Props): ReactElement {
           tieCount={tieCount}
         ></ScoreTable>
       </Grid>
-    </Paper>
+    </Card>
   );
 }

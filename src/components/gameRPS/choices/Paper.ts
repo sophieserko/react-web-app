@@ -1,5 +1,11 @@
-import React from "react";
+import { Choice, Result } from "../choice";
 
-export default function Paper() {
-  return;
+export function Paper(choice: String): Result {
+  if (choice === Choice.Rock) {
+    return Result.PlayerWin;
+  }
+  if (choice === Choice.Scissors) {
+    return Result.RobotWin;
+  }
+  return Result.Tie;
 }

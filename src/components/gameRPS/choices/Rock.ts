@@ -1,5 +1,11 @@
-import React from "react";
+import { Choice, Result } from "../choice";
 
-export default function Rock() {
-  return;
+export function Rock(choice: String): Result {
+  if (choice === Choice.Scissors) {
+    return Result.PlayerWin;
+  }
+  if (choice === Choice.Paper) {
+    return Result.RobotWin;
+  }
+  return Result.Tie;
 }

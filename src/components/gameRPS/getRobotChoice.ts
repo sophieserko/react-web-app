@@ -11,6 +11,6 @@ const max = 4;
 export function getRobotChoice2(): string {
   const random = Math.floor(min + Math.random() * (max - min));
   const stringChoice = playItems.get(random);
-  const val = stringChoice ? stringChoice : "help";
+  const val = stringChoice ? stringChoice : "help"; //removes undefined type
   return val;
 }

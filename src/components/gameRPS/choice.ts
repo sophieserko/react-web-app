@@ -3,3 +3,9 @@ export enum Choice {
   Paper = "PAPER",
   Scissors = "SCISSORS",
 }
+
+export enum Result {
+  Tie = "TIE",
+  PlayerWin = "PLAYER WIN",
+  RobotWin = "ROBOT WIN",
+}
