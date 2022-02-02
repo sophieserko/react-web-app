@@ -9,3 +9,9 @@ export enum Result {
   PlayerWin = "PLAYER WIN",
   RobotWin = "ROBOT WIN",
 }
+
+export enum VsResult {
+  RockVsScissors = "rock breaks scissors.",
+  ScissorsVsPaper = "scissors cuts paper.",
+  PaperVsRock = "paper wraps rock.",
+}

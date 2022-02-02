@@ -10,22 +10,33 @@ import { Person } from "@material-ui/icons";
 import React, { ReactElement } from "react";
 import { Container, Grid, Typography } from "@material-ui/core";
 
-interface Props {}
+interface Props {
+  robot: string;
+  player: string;
+  playerName: string;
+  gameResult: string;
+}
 
-export const GameStateOutput = (_props: Props) => {
+export const GameStateOutput = ({
+  robot,
+  player,
+  playerName,
+  gameResult,
+}: Props) => {
   return (
     <Container>
       <Grid container direction="row" justifyContent="center">
         <AdbIcon fontSize="large"></AdbIcon>
-        {/* <Typography variant="h5">Robot = {gameState.robotChoice}</Typography> */}
+        <Typography variant="h5">Robot = {robot}</Typography>
       </Grid>
 
       <Grid container direction="row" justifyContent="center">
         <Person fontSize="large"></Person>
-        {/* <Typography variant="h5" data-testid="player-choice">
-          {playerName} = {gameState.playerChoice}
-        </Typography> */}
+        <Typography variant="h5" data-testid="player-choice">
+          {playerName} = {player}
+        </Typography>
       </Grid>
+      <Typography variant="h5">Result: {gameResult}</Typography>
     </Container>
   );
 };

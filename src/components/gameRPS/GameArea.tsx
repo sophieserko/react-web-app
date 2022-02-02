@@ -22,7 +22,7 @@ import {
 import { Rock } from "./choices/Rock";
 import { Scissors } from "./choices/Scissors";
 import { Paper } from "./choices/Paper";
-import { GameStateOutput } from "./printOutGameState";
+import { GameStateOutput } from "./GameStateOutput";
 
 const useStyles = makeStyles((theme) => ({
   play: {
@@ -83,12 +83,6 @@ export default function GameArea(_props: Props): ReactElement {
 
     calculateGameOutcome(playerChoiceString, robotChoiceString);
 
-    if (playerChoiceString === robotChoiceString) {
-      setGameResult(tie());
-      setTieCount(tieCount + 1);
-      return;
-    }
-
     var result: Result = Result.Tie;
 
     switch (playerChoiceString) {
@@ -107,7 +101,15 @@ export default function GameArea(_props: Props): ReactElement {
     }
 
     //var print = GameStateOutput(playerChoiceString, result);
-    //setGameResult(print);
+    setGameResult(result);
+
+    if (result === Result.PlayerWin) {
+      setPlayerScore(playerScore + 1);
+    } else if (result === Result.RobotWin) {
+      setRobotScore(robotScore + 1);
+    } else {
+      setTieCount(tieCount + 1);
+    }
   }
 
   //console.log("log playerChoice just before render " + playerChoice);
@@ -141,9 +143,13 @@ export default function GameArea(_props: Props): ReactElement {
           <GameButton handleClick={buttonClick} name={Choice.Scissors} />
         </div>
 
-        <GameStateOutput></GameStateOutput>
+        <GameStateOutput
+          robot={gameState.robotChoice}
+          player={gameState.playerChoice}
+          playerName={playerName}
+          gameResult={gameResult}
+        ></GameStateOutput>
 
-        <Typography variant="h5">Result: {gameResult}</Typography>
         <ScoreTable
           numberOfGamesPlayed={totalGamesPlayed}
           robotScore={robotScore}
