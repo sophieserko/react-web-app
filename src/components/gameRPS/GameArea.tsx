@@ -8,7 +8,7 @@ import {
 import React, { ReactElement, useState } from "react";
 import GameButton from "./GameButton";
 import { ScoreTable } from "./ScoreTable";
-import { getRobotChoice2 } from "./getRobotChoice";
+import { getRobotChoice } from "./getRobotChoice";
 import { Choice, Result } from "./choice";
 import { calculateGameOutcome } from "./calculateGameOutcome";
 import {
@@ -44,15 +44,9 @@ interface Props {}
 export default function GameArea(_props: Props): ReactElement {
   const classes = useStyles();
 
-  const [gameState, setGameState] = useState({
-    playerChoice: " - ",
-    robotChoice: " - ",
-    result: "--click to play--",
-  });
-
   const [gameResult, setGameResult] = useState("--click to play--");
-  //const [playerChoice, setPlayerChoice] = useState(" - ");
-  //const [robotChoice, setRobotChoice] = useState<string | undefined>(" - ");
+  const [playerChoice, setPlayerChoice] = useState(" - ");
+  const [robotChoice, setRobotChoice] = useState<string>(" - ");
   const [playerName, setPlayerName] = useState("Player");
 
   const [robotScore, setRobotScore] = useState(0);
@@ -61,18 +55,14 @@ export default function GameArea(_props: Props): ReactElement {
   const [totalGamesPlayed, setTotalGamesPlayed] = useState(0); //can these be exported?
 
   function buttonClick(text: string) {
+    console.log("rerender");
     setTotalGamesPlayed(totalGamesPlayed + 1);
 
     const playerChoiceString = text;
-    const robotChoiceString = getRobotChoice2();
+    const robotChoiceString = getRobotChoice();
 
-    setGameState((previousState) => {
-      return {
-        ...previousState,
-        playerChoice: playerChoiceString,
-        robotChoice: robotChoiceString,
-      };
-    });
+    setPlayerChoice(playerChoiceString);
+    setRobotChoice(robotChoiceString);
 
     // console.log(
     //   "playerChoice is now: " +
@@ -81,7 +71,7 @@ export default function GameArea(_props: Props): ReactElement {
     //     robotChoice
     // );
 
-    calculateGameOutcome(playerChoiceString, robotChoiceString);
+    //calculateGameOutcome(playerChoiceString, robotChoiceString);
 
     var result: Result = Result.Tie;
 
@@ -113,7 +103,7 @@ export default function GameArea(_props: Props): ReactElement {
   }
 
   //console.log("log playerChoice just before render " + playerChoice);
-
+  console.log("rerender22");
   return (
     <Card className={classes.play}>
       <Grid
@@ -144,18 +134,18 @@ export default function GameArea(_props: Props): ReactElement {
         </div>
 
         <GameStateOutput
-          robot={gameState.robotChoice}
-          player={gameState.playerChoice}
+          robot={robotChoice}
+          player={playerChoice}
           playerName={playerName}
           gameResult={gameResult}
-        ></GameStateOutput>
+        />
 
         <ScoreTable
           numberOfGamesPlayed={totalGamesPlayed}
           robotScore={robotScore}
           playerScore={playerScore}
           tieCount={tieCount}
-        ></ScoreTable>
+        />
       </Grid>
     </Card>
   );

@@ -72,7 +72,7 @@ describe("Score increase", () => {
     // jest.mock("./getRobotChoice", () => {
     //   return { getRobotChoice2: () => "ROCK" };
     // });
-    jest.spyOn(utils, "getRobotChoice2").mockReturnValue("ROCK");
+    jest.spyOn(utils, "getRobotChoice").mockReturnValue("ROCK");
     render(<GameArea />);
 
     const paperButton = screen.getByTestId("PAPERButton");
