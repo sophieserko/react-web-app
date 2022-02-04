@@ -9,6 +9,10 @@ interface Props {
   gameResult: string;
 }
 
+function getVsMessage(): string {
+  return "";
+}
+
 export const GameStateOutput = ({
   robot,
   player,

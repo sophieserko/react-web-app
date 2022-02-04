@@ -11,22 +11,23 @@ import GameArea from "./gameRPS/GameArea";
 
 const useStyles = makeStyles((theme: Theme) => ({
   background: {
-    //backgroundColor: theme.palette.info.main,
+    backgroundColor: theme.palette.info.main,
+    padding: 10,
   },
 }));
 
 const myTheme = createTheme({
   palette: {
     primary: {
-      main: "#383b53",
-      dark: "#32213a",
-      light: "#66717e",
+      main: "#F3EEC3",
+      dark: "#F7E3AF",
     },
     secondary: {
-      main: "#d6ffb7",
+      main: "#F7AF9D",
+      dark: "#C08497",
     },
     info: {
-      main: "#f78764",
+      main: "#B0D0D3",
     },
   },
 });

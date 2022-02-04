@@ -15,12 +15,9 @@ import { getResult } from "./getResult";
 
 const useStyles = makeStyles((theme) => ({
   play: {
-    backgroundColor: theme.palette.secondary.light,
+    backgroundColor: theme.palette.primary.main,
     margin: 10,
     padding: 20,
-  },
-  titleComponent: {
-    color: theme.palette.primary.dark,
   },
   buttonGroup: {
     padding: 10,
@@ -74,9 +71,7 @@ export default function GameArea(_props: Props): ReactElement {
         justifyContent="center"
         alignItems="center"
       >
-        <Typography variant="h4" className={classes.titleComponent}>
-          Play the Game
-        </Typography>
+        <Typography variant="h4">Play the Game</Typography>
 
         <TextField
           id="playerName"

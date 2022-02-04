@@ -12,7 +12,7 @@ import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   table: {
-    backgroundColor: "#34eba8",
+    backgroundColor: theme.palette.secondary.main,
   },
 }));
 
