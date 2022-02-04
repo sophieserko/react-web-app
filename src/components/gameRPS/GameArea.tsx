@@ -10,19 +10,8 @@ import GameButton from "./GameButton";
 import { ScoreTable } from "./ScoreTable";
 import { getRobotChoice } from "./getRobotChoice";
 import { Choice, Result } from "./choice";
-import { calculateGameOutcome } from "./calculateGameOutcome";
-import {
-  tie,
-  rockVsScissors,
-  youWin,
-  paperVsRock,
-  robotWin,
-  scissorsVsPaper,
-} from "./strings";
-import { Rock } from "./choices/Rock";
-import { Scissors } from "./choices/Scissors";
-import { Paper } from "./choices/Paper";
 import { GameStateOutput } from "./GameStateOutput";
+import { getResult } from "./getResult";
 
 const useStyles = makeStyles((theme) => ({
   play: {
@@ -34,8 +23,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.dark,
   },
   buttonGroup: {
-    justifyContent: "center",
-    margin: 10,
     padding: 10,
   },
 }));
@@ -44,7 +31,7 @@ interface Props {}
 export default function GameArea(_props: Props): ReactElement {
   const classes = useStyles();
 
-  const [gameResult, setGameResult] = useState("--click to play--");
+  const [message, setMessage] = useState("--click to play--");
   const [playerChoice, setPlayerChoice] = useState(" - ");
   const [robotChoice, setRobotChoice] = useState<string>(" - ");
   const [playerName, setPlayerName] = useState("Player");
@@ -55,7 +42,6 @@ export default function GameArea(_props: Props): ReactElement {
   const [totalGamesPlayed, setTotalGamesPlayed] = useState(0); //can these be exported?
 
   function buttonClick(text: string) {
-    console.log("rerender");
     setTotalGamesPlayed(totalGamesPlayed + 1);
 
     const playerChoiceString = text;
@@ -64,35 +50,13 @@ export default function GameArea(_props: Props): ReactElement {
     setPlayerChoice(playerChoiceString);
     setRobotChoice(robotChoiceString);
 
-    // console.log(
-    //   "playerChoice is now: " +
-    //     playerChoice +
-    //     " and robotChoice: " +
-    //     robotChoice
-    // );
+    var result = getResult(playerChoiceString, robotChoiceString);
+    setMessage(result);
 
-    //calculateGameOutcome(playerChoiceString, robotChoiceString);
+    setScore(result);
+  }
 
-    var result: Result = Result.Tie;
-
-    switch (playerChoiceString) {
-      case Choice.Rock: {
-        result = Rock(robotChoiceString);
-        break;
-      }
-      case Choice.Scissors: {
-        result = Scissors(robotChoiceString);
-        break;
-      }
-      case Choice.Paper: {
-        result = Paper(robotChoiceString);
-        break;
-      }
-    }
-
-    //var print = GameStateOutput(playerChoiceString, result);
-    setGameResult(result);
-
+  function setScore(result: Result) {
     if (result === Result.PlayerWin) {
       setPlayerScore(playerScore + 1);
     } else if (result === Result.RobotWin) {
@@ -102,8 +66,6 @@ export default function GameArea(_props: Props): ReactElement {
     }
   }
 
-  //console.log("log playerChoice just before render " + playerChoice);
-  console.log("rerender22");
   return (
     <Card className={classes.play}>
       <Grid
@@ -137,9 +99,8 @@ export default function GameArea(_props: Props): ReactElement {
           robot={robotChoice}
           player={playerChoice}
           playerName={playerName}
-          gameResult={gameResult}
+          gameResult={message}
         />
-
         <ScoreTable
           numberOfGamesPlayed={totalGamesPlayed}
           robotScore={robotScore}

@@ -1,13 +1,5 @@
-import { Choice, Result } from "./choice";
 import AdbIcon from "@material-ui/icons/Adb";
 import { Person } from "@material-ui/icons";
-
-// export function printOutGameState(choice: string, result: Result): string {
-
-//   return "";
-// }
-
-import React, { ReactElement } from "react";
 import { Container, Grid, Typography } from "@material-ui/core";
 
 interface Props {
@@ -24,7 +16,7 @@ export const GameStateOutput = ({
   gameResult,
 }: Props) => {
   return (
-    <Container>
+    <Container style={{ padding: 10 }}>
       <Grid container direction="row" justifyContent="center">
         <AdbIcon fontSize="large"></AdbIcon>
         <Typography variant="h5">Robot = {robot}</Typography>
@@ -36,7 +28,9 @@ export const GameStateOutput = ({
           {playerName} = {player}
         </Typography>
       </Grid>
-      <Typography variant="h5">Result: {gameResult}</Typography>
+      <Grid container justifyContent="center">
+        <Typography variant="h5">Result: {gameResult}</Typography>
+      </Grid>
     </Container>
   );
 };
