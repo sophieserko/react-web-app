@@ -1,7 +1,6 @@
 import AdbIcon from "@material-ui/icons/Adb";
 import { Person } from "@material-ui/icons";
 import { Container, Grid, Typography } from "@material-ui/core";
-import { Choice } from "./choice";
 
 interface Props {
   robot: string;

@@ -48,7 +48,7 @@ export default function GameArea(_props: Props): ReactElement {
     setRobotChoice(robotChoiceString);
 
     var [vsResult, result] = getResult(playerChoiceString, robotChoiceString);
-    setMessage(vsResult + result);
+    setMessage(vsResult + " " + result);
 
     setScore(result);
   }
@@ -88,6 +88,8 @@ export default function GameArea(_props: Props): ReactElement {
           <GameButton handleClick={buttonClick} name={Choice.Rock} />
           <GameButton handleClick={buttonClick} name={Choice.Paper} />
           <GameButton handleClick={buttonClick} name={Choice.Scissors} />
+          <GameButton handleClick={buttonClick} name={Choice.Lizard} />
+          <GameButton handleClick={buttonClick} name={Choice.Spock} />
         </div>
 
         <GameStateOutput
