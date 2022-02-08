@@ -29,6 +29,7 @@ export default function GameArea(_props: Props): ReactElement {
   const classes = useStyles();
 
   const [message, setMessage] = useState("--click to play--");
+  const [winner, setWinner] = useState("");
   const [playerChoice, setPlayerChoice] = useState(" - ");
   const [robotChoice, setRobotChoice] = useState<string>(" - ");
   const [playerName, setPlayerName] = useState("Player");
@@ -47,10 +48,10 @@ export default function GameArea(_props: Props): ReactElement {
     setPlayerChoice(playerChoiceString);
     setRobotChoice(robotChoiceString);
 
-    var [vsResult, result] = getResult(playerChoiceString, robotChoiceString);
-    setMessage(vsResult + " " + result);
-
-    setScore(result);
+    var [vsResult, whoWins] = getResult(playerChoiceString, robotChoiceString);
+    setMessage(vsResult);
+    setWinner(whoWins);
+    setScore(whoWins);
   }
 
   function setScore(result: Result) {
@@ -97,6 +98,7 @@ export default function GameArea(_props: Props): ReactElement {
           player={playerChoice}
           playerName={playerName}
           gameResult={message}
+          winner={winner}
         />
         <ScoreTable
           numberOfGamesPlayed={totalGamesPlayed}

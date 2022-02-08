@@ -7,6 +7,7 @@ interface Props {
   player: string;
   playerName: string;
   gameResult: string;
+  winner: string;
 }
 
 export const GameStateOutput = ({
@@ -14,6 +15,7 @@ export const GameStateOutput = ({
   player,
   playerName,
   gameResult,
+  winner,
 }: Props) => {
   return (
     <Container style={{ padding: 10 }}>
@@ -28,8 +30,19 @@ export const GameStateOutput = ({
           {playerName} = {player}
         </Typography>
       </Grid>
-      <Grid container justifyContent="center">
-        <Typography variant="h5">Result: {gameResult}</Typography>
+      <Grid
+        container
+        direction="column"
+        //justifyContent="center"
+        alignItems="center"
+        style={{ padding: 10 }}
+      >
+        <Grid item>
+          <Typography variant="h5">Result: {gameResult}</Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="h4">{winner}</Typography>
+        </Grid>
       </Grid>
     </Container>
   );
