@@ -72,18 +72,18 @@ export default function GameArea(_props: Props): ReactElement {
         justifyContent="center"
         alignItems="center"
       >
-        <Typography variant="h4">Play the Game</Typography>
-
-        <TextField
-          id="playerName"
-          label="Player Name"
-          variant="outlined"
-          onChange={(e) => {
-            setPlayerName(e.target.value);
-          }}
-        />
-
-        <Typography variant="h5">Choose your action</Typography>
+        <Grid container justifyContent="space-between" style={{ padding: 10 }}>
+          <Typography variant="h4">Rock-Paper-Scissors</Typography>
+          <TextField
+            id="playerName"
+            label="Player Name"
+            variant="outlined"
+            onChange={(e) => {
+              setPlayerName(e.target.value);
+            }}
+          />
+        </Grid>
+        <Typography variant="h4">Choose your action</Typography>
 
         <div className={classes.buttonGroup}>
           <GameButton handleClick={buttonClick} name={Choice.Rock} />

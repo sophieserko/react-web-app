@@ -23,7 +23,6 @@ function App() {
     //   </header>
     // </div>
     <div>
-      Paper scissors rock
       <HomePage />
     </div>
   );

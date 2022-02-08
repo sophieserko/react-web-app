@@ -8,8 +8,8 @@ export enum Choice {
 
 export enum Result {
   Tie = "TIE",
-  PlayerWin = "PLAYER WIN",
-  RobotWin = "ROBOT WIN",
+  PlayerWin = "PLAYER WINS",
+  RobotWin = "ROBOT WINS",
 }
 
 export enum VsResult {
