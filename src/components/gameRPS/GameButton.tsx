@@ -3,7 +3,7 @@ import React, { ReactElement } from "react";
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    backgroundColor: "#336676",
+    backgroundColor: theme.palette.secondary.dark,
     margin: "10px",
   },
 }));
@@ -19,6 +19,7 @@ export default function GameButton(_props: Props): ReactElement {
       className={classes.button}
       variant="outlined"
       size="large"
+      data-testid={_props.name + "Button"}
       onClick={() => _props.handleClick(_props.name)}
     >
       {_props.name}
