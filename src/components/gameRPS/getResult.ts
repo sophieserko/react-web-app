@@ -1,4 +1,4 @@
-import { Choice, Result } from "./choice";
+import { Choice, Result, VsResult } from "./choice";
 import { Paper } from "./choices/Paper";
 import { Rock } from "./choices/Rock";
 import { Scissors } from "./choices/Scissors";
@@ -6,22 +6,23 @@ import { Scissors } from "./choices/Scissors";
 export function getResult(
   playerChoiceString: string,
   robotChoiceString: string
-): Result {
+): [VsResult, Result] {
+  var vsResult: VsResult = VsResult.Tie;
   var result: Result = Result.Tie;
 
   switch (playerChoiceString) {
     case Choice.Rock: {
-      result = Rock(robotChoiceString);
+      [vsResult, result] = Rock(robotChoiceString);
       break;
     }
     case Choice.Scissors: {
-      result = Scissors(robotChoiceString);
+      [vsResult, result] = Scissors(robotChoiceString);
       break;
     }
     case Choice.Paper: {
-      result = Paper(robotChoiceString);
+      [vsResult, result] = Paper(robotChoiceString);
       break;
     }
   }
-  return result;
+  return [vsResult, result];
 }

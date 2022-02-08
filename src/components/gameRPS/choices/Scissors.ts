@@ -1,11 +1,11 @@
-import { Choice, Result } from "../choice";
+import { Choice, Result, VsResult } from "../choice";
 
-export function Scissors(choice: String): Result {
+export function Scissors(choice: String): [VsResult, Result] {
   if (choice === Choice.Paper) {
-    return Result.PlayerWin;
+    return [VsResult.ScissorsVsPaper, Result.PlayerWin];
   }
   if (choice === Choice.Rock) {
-    return Result.RobotWin;
+    return [VsResult.RockVsScissors, Result.RobotWin];
   }
-  return Result.Tie;
+  return [VsResult.Tie, Result.Tie];
 }

@@ -11,7 +11,8 @@ export enum Result {
 }
 
 export enum VsResult {
-  RockVsScissors = "rock breaks scissors.",
-  ScissorsVsPaper = "scissors cuts paper.",
-  PaperVsRock = "paper wraps rock.",
+  RockVsScissors = "Rock breaks Scissors.",
+  ScissorsVsPaper = "Scissors cuts Paper.",
+  PaperVsRock = "Paper wraps Rock.",
+  Tie = " ",
 }

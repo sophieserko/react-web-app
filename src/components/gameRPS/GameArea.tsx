@@ -47,8 +47,8 @@ export default function GameArea(_props: Props): ReactElement {
     setPlayerChoice(playerChoiceString);
     setRobotChoice(robotChoiceString);
 
-    var result = getResult(playerChoiceString, robotChoiceString);
-    setMessage(result);
+    var [vsResult, result] = getResult(playerChoiceString, robotChoiceString);
+    setMessage(vsResult + result);
 
     setScore(result);
   }
