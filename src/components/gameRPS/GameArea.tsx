@@ -29,6 +29,7 @@ export default function GameArea(_props: Props): ReactElement {
   const classes = useStyles();
 
   const [message, setMessage] = useState("--click to play--");
+  const [winner, setWinner] = useState("");
   const [playerChoice, setPlayerChoice] = useState(" - ");
   const [robotChoice, setRobotChoice] = useState<string>(" - ");
   const [playerName, setPlayerName] = useState("Player");
@@ -47,10 +48,10 @@ export default function GameArea(_props: Props): ReactElement {
     setPlayerChoice(playerChoiceString);
     setRobotChoice(robotChoiceString);
 
-    var [vsResult, result] = getResult(playerChoiceString, robotChoiceString);
-    setMessage(vsResult + result);
-
-    setScore(result);
+    var [vsResult, whoWins] = getResult(playerChoiceString, robotChoiceString);
+    setMessage(vsResult);
+    setWinner(whoWins);
+    setScore(whoWins);
   }
 
   function setScore(result: Result) {
@@ -71,23 +72,25 @@ export default function GameArea(_props: Props): ReactElement {
         justifyContent="center"
         alignItems="center"
       >
-        <Typography variant="h4">Play the Game</Typography>
-
-        <TextField
-          id="playerName"
-          label="Player Name"
-          variant="outlined"
-          onChange={(e) => {
-            setPlayerName(e.target.value);
-          }}
-        />
-
-        <Typography variant="h5">Choose your action</Typography>
+        <Grid container justifyContent="space-between" style={{ padding: 10 }}>
+          <Typography variant="h4">Rock-Paper-Scissors</Typography>
+          <TextField
+            id="playerName"
+            label="Player Name"
+            variant="outlined"
+            onChange={(e) => {
+              setPlayerName(e.target.value);
+            }}
+          />
+        </Grid>
+        <Typography variant="h4">Choose your action</Typography>
 
         <div className={classes.buttonGroup}>
           <GameButton handleClick={buttonClick} name={Choice.Rock} />
           <GameButton handleClick={buttonClick} name={Choice.Paper} />
           <GameButton handleClick={buttonClick} name={Choice.Scissors} />
+          <GameButton handleClick={buttonClick} name={Choice.Lizard} />
+          <GameButton handleClick={buttonClick} name={Choice.Spock} />
         </div>
 
         <GameStateOutput
@@ -95,6 +98,7 @@ export default function GameArea(_props: Props): ReactElement {
           player={playerChoice}
           playerName={playerName}
           gameResult={message}
+          winner={winner}
         />
         <ScoreTable
           numberOfGamesPlayed={totalGamesPlayed}

@@ -46,9 +46,15 @@ export const ScoreTable = ({
             <TableCell component="th" scope="row">
               {numberOfGamesPlayed}
             </TableCell>
-            <TableCell align="right">{robotScore}</TableCell>
-            <TableCell align="right">{playerScore}</TableCell>
-            <TableCell align="right">{tieCount}</TableCell>
+            <TableCell align="right" data-testid="robot-score-data">
+              {robotScore}
+            </TableCell>
+            <TableCell align="right" data-testid="player-score-data">
+              {playerScore}
+            </TableCell>
+            <TableCell align="right" data-testid="tie-score-data">
+              {tieCount}
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>

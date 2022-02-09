@@ -7,5 +7,11 @@ export function Scissors(choice: String): [VsResult, Result] {
   if (choice === Choice.Rock) {
     return [VsResult.RockVsScissors, Result.RobotWin];
   }
+  if (choice === Choice.Lizard) {
+    return [VsResult.ScissorsVsLizard, Result.PlayerWin];
+  }
+  if (choice === Choice.Spock) {
+    return [VsResult.SpockVsScissors, Result.RobotWin];
+  }
   return [VsResult.Tie, Result.Tie];
 }

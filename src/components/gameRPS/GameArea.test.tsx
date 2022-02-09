@@ -3,6 +3,9 @@ import { render, screen } from "@testing-library/react";
 import GameArea from "./GameArea";
 import userEvent from "@testing-library/user-event";
 import * as utils from "./getRobotChoice";
+import { Choice, Result, VsResult } from "./choice";
+import { getResult } from "./getResult";
+import { setSourceMapRange } from "typescript";
 
 describe("The rock button", () => {
   it("should display in the GameArea", () => {
@@ -67,8 +70,17 @@ describe("The paper button", () => {
   });
 });
 
+describe("When the player chooses rock", () => {
+  it("robot is paper - returns paper wraps rock", () => {
+    const [v, r] = getResult(Choice.Rock, Choice.Paper);
+
+    expect(v).toEqual(VsResult.PaperVsRock);
+    expect(r).toEqual(Result.RobotWin);
+  });
+});
+
 describe("Score increase", () => {
-  it.only("for player when player wins a round", () => {
+  it("when player wins a round add 1 point", () => {
     // jest.mock("./getRobotChoice", () => {
     //   return { getRobotChoice2: () => "ROCK" };
     // });
@@ -79,9 +91,9 @@ describe("Score increase", () => {
 
     userEvent.click(paperButton);
 
-    expect(
-      screen.getByText(/Result: rock breaks scissors. You win!!/i)
-    ).toBeInTheDocument();
+    const playerScoreNew = screen.getByTestId("player-score-data");
+
+    expect(playerScoreNew).toEqual("1");
   });
 
   it("for robot when robot wins a round", () => {});
