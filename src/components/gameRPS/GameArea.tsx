@@ -73,7 +73,7 @@ export default function GameArea(_props: Props): ReactElement {
         alignItems="center"
       >
         <Grid container justifyContent="space-between" style={{ padding: 10 }}>
-          <Typography variant="h4">Rock-Paper-Scissors</Typography>
+          <Typography variant="h4">Play Rock-Paper-Scissors</Typography>
           <TextField
             id="playerName"
             label="Player Name"
